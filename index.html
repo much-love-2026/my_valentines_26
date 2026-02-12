@@ -1,1 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Brigid's Valentine Journey</title>
+  <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* General Reset */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      height: 100vh;
+      width: 100vw;
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #3b0a45, #ff5f87);
+      overflow: hidden;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
 
+    /* Typing container */
+    #typingText {
+      font-size: 2rem;
+      text-align: center;
+      max-width: 700px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    /* Password container */
+    #passwordContainer {
+      margin-top: 30px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #passwordInput {
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      margin-bottom: 15px;
+    }
+
+    #unlockButton {
+      padding: 10px 25px;
+      font-size: 1.2rem;
+      border-radius: 10px;
+      border: none;
+      background-color: #ff5f87;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #unlockButton:hover {
+      background-color: #ff2a63;
+      transform: scale(1.05);
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: rgba(255, 255, 255, 0.8);
+      transform: rotate(-45deg);
+      animation: floatUp 6s linear infinite;
+    }
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+    }
+    .heart::before { top: -7.5px; left: 0; }
+    .heart::after { left: 7.5px; top: 0; }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(-45deg); opacity: 1; }
+      100% { transform: translateY(-700px) rotate(-45deg); opacity: 0; }
+    }
+
+    /* Music toggle */
+    #musicToggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.2);
+      padding: 10px 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="typingText"></div>
+
+  <div id="passwordContainer">
+    <input type="text" id="passwordInput" placeholder="Type the year...">
+    <button id="unlockButton">Decrypt Our Story ❤️</button>
+  </div>
+
+  <div id="musicToggle">🎵 Play Music</div>
+
+  <audio id="bgMusic" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // Typing Effect
+    const textLines = [
+      "Brigid…",
+      "2017.\nThe year I met the girl\nI didn’t know would become my forever thought.",
+      "Since then…\nYou have never really left my mind.",
+      "I have imagined a thousand futures.\nUs building something real.\nUs growing together.\nUs laughing at nothing.\nUs praying.\nUs succeeding.\nUs failing and choosing each other anyway.",
+      "I never found the perfect words\nto explain what you mean to me.",
+      "So instead…\nI built something."
+    ];
+
+    let container = document.getElementById("typingText");
+    let lineIndex = 0;
+    let charIndex = 0;
+
+    function typeLine() {
+      if(lineIndex < textLines.length) {
+        if(charIndex < textLines[lineIndex].length) {
+          container.innerHTML += textLines[lineIndex][charIndex];
+          charIndex++;
+          setTimeout(typeLine, 50);
+        } else {
+          container.innerHTML += "\n\n";
+          lineIndex++;
+          charIndex = 0;
+          setTimeout(typeLine, 600);
+        }
+      } else {
+        document.getElementById("passwordContainer").style.display = "flex";
+      }
+    }
+    typeLine();
+
+    // Password logic
+    const unlockButton = document.getElementById("unlockButton");
+    unlockButton.addEventListener("click", () => {
+      const input = document.getElementById("passwordInput").value.trim();
+      if(input === "2017"){
+        container.innerHTML = "Access Granted.\nFirewall lowered.\nVulnerability exposed.\nStatus: Permanently yours.";
+        setTimeout(() => {
+          // Redirect to Page 2
+          window.location.href = "page2.html"; // We'll create this next
+        }, 2500);
+      } else {
+        unlockButton.innerText = "Almost… try again 😉";
+        setTimeout(()=>{unlockButton.innerText="Decrypt Our Story ❤️";},2000);
+      }
+    });
+
+    // Floating hearts
+    for(let i=0;i<20;i++){
+      let heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+      heart.style.opacity = Math.random();
+      document.body.appendChild(heart);
+    }
+
+    // Music toggle
+    const musicToggle = document.getElementById("musicToggle");
+    const bgMusic = document.getElementById("bgMusic");
+    let musicPlaying = false;
+    musicToggle.addEventListener("click",()=>{
+      if(!musicPlaying){bgMusic.play(); musicToggle.innerText="🔇 Pause Music"; musicPlaying=true;}
+      else{bgMusic.pause(); musicToggle.innerText="🎵 Play Music"; musicPlaying=false;}
+    });
+  </script>
+
+</body>
+</html>
