@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Not Just A Moment… 💝</title>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Georgia', serif;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(-45deg, #1a001f, #330033, #4b004b, #2a0033);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    color: #ffd6f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+@keyframes gradientShift {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+.container {
+    width: 90%;
+    max-width: 800px;
+}
+
+h1 {
+    font-size: 2.3em;
+    margin-bottom: 20px;
+    color: #ff99dd;
+    text-shadow: 0 0 15px #ff66cc;
+}
+
+#text {
+    font-size: 1.3em;
+    min-height: 200px;
+    line-height: 1.8em;
+}
+
+.finalLine {
+    margin-top: 30px;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #ffffff;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+}
+
+button {
+    margin-top: 30px;
+    padding: 15px 35px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(45deg, #ff4da6, #ff66cc);
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px #ff66cc;
+}
+
+.heart {
+    position: absolute;
+    font-size: 20px;
+    animation: floatUp 8s linear infinite;
+    opacity: 0.5;
+}
+
+@keyframes floatUp {
+    from {transform: translateY(100vh);}
+    to {transform: translateY(-10vh);}
+}
+</style>
+</head>
+
+<body>
+
+<audio autoplay loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-slowmotion.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+<h1>Brigid… 💝</h1>
+
+<div id="text"></div>
+
+<div class="finalLine" id="finalLine">
+I am not choosing you for a season…  
+I am choosing you for the journey. 🌙✨
+</div>
+
+<button onclick="reveal()">Take A Breath… Then Click 💌</button>
+</div>
+
+<script>
+
+const message = `I need you to read this slowly.
+
+Not with excitement.
+Not with pressure.
+
+But with honesty.
+
+I know I have not always expressed myself loudly.
+
+I know I have been quiet.
+Reserved.
+Careful.
+
+But my silence was never emptiness.
+
+It was depth.
+
+Since 2017…
+
+You have never been a temporary thought.
+
+You have been consistency.
+
+And that is rare.
+
+This is not about one day.
+Not about flowers.
+Not about social media moments.
+
+This is about something calm.
+Something intentional.
+Something that grows quietly…
+and lasts loudly.
+
+I don’t want to rush you.
+
+I don’t want to pressure you.
+
+I only want you to know…
+
+If we walk this path…
+
+I walk it seriously.
+With clarity.
+With loyalty.
+With respect.
+
+And with you —
+only you. 💞`;
+
+let i = 0;
+
+function typeWriter() {
+    if (i < message.length) {
+        document.getElementById("text").innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeWriter, 40);
+    }
+}
+
+typeWriter();
+
+function reveal() {
+    document.getElementById("finalLine").style.opacity = "1";
+}
+
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 8000);
+}
+
+setInterval(createHeart, 800);
+
+</script>
+
+</body>
+</html>
