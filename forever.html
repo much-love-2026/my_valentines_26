@@ -3,7 +3,204 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Forever With You 💖</title>
+<title>Forever With You 💖</title><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forever – For Brigid</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background: radial-gradient(circle at center, #2c1810 0%, #140d08 70%, #0b0604 100%);
+    color:#f5e6d3;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    position:relative;
+}
+
+/* Subtle vignette */
+body::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle, transparent 40%, rgba(0,0,0,0.75) 100%);
+    pointer-events:none;
+}
+
+/* Warm glow pulse */
+.glow{
+    position:absolute;
+    width:300px;
+    height:300px;
+    background:radial-gradient(circle, rgba(255,180,120,0.25), transparent 70%);
+    border-radius:50%;
+    animation:pulse 6s ease-in-out infinite;
+}
+
+@keyframes pulse{
+    0%,100%{transform:scale(1);opacity:0.6;}
+    50%{transform:scale(1.2);opacity:0.9;}
+}
+
+.container{
+    max-width:700px;
+    padding:30px;
+    text-align:center;
+    position:relative;
+    z-index:2;
+}
+
+.opening{
+    font-family:'Playfair Display',serif;
+    font-size:2rem;
+    margin-bottom:40px;
+    opacity:0;
+    animation:fadeIn 2s ease forwards;
+}
+
+.paragraph{
+    margin:20px 0;
+    line-height:1.8;
+    font-size:1.05rem;
+    opacity:0;
+}
+
+.paragraph:nth-child(2){animation:fadeIn 2s ease forwards 2s;}
+.paragraph:nth-child(3){animation:fadeIn 2s ease forwards 4s;}
+.paragraph:nth-child(4){animation:fadeIn 2s ease forwards 6s;}
+.paragraph:nth-child(5){animation:fadeIn 2s ease forwards 8s;}
+
+.divider{
+    margin:50px auto;
+    width:0;
+    height:1px;
+    background:#e0b07d;
+    animation:lineExpand 2s ease forwards 10s;
+}
+
+@keyframes lineExpand{
+    to{width:60%;}
+}
+
+.pivot{
+    margin-top:30px;
+    font-family:'Playfair Display',serif;
+    font-size:1.5rem;
+    opacity:0;
+    animation:fadeIn 2s ease forwards 12s;
+}
+
+button{
+    margin-top:40px;
+    padding:14px 32px;
+    border:none;
+    border-radius:40px;
+    background:rgba(255,200,150,0.1);
+    color:#f5e6d3;
+    font-size:1rem;
+    cursor:pointer;
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,200,150,0.3);
+    transition:all 0.4s ease;
+    opacity:0;
+    animation:fadeIn 2s ease forwards 14s;
+}
+
+button:hover{
+    background:rgba(255,200,150,0.25);
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
+@keyframes fadeIn{
+    to{opacity:1;}
+}
+
+.fade-out{
+    animation:fadeOut 1s ease forwards;
+}
+
+@keyframes fadeOut{
+    to{opacity:0; transform:scale(0.98);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="glow"></div>
+
+<div class="container" id="content">
+
+<div class="opening">
+There are things I don’t always say.
+</div>
+
+<div class="paragraph">
+Sometimes I hold them back.<br>
+Not because they are small…<br>
+but because I’m not fully sure where you stand.
+</div>
+
+<div class="paragraph">
+And when I don’t fully know your real take,<br>
+I become quieter than I actually feel.
+</div>
+
+<div class="paragraph">
+But silence doesn’t mean distance.<br>
+It doesn’t mean indifference.<br>
+It doesn’t mean uncertainty.
+</div>
+
+<div class="paragraph">
+It simply means…<br>
+you matter more than I show.
+</div>
+
+<div class="divider"></div>
+
+<div class="pivot">
+And if I ever fail to say it the right way…<br><br>
+let this say it for me.
+</div>
+
+<button onclick="nextPage()">Stay With Me</button>
+
+</div>
+
+<audio id="bgMusic" loop>
+    <source src="soft-piano.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const music = document.getElementById("bgMusic");
+music.volume = 0.25;
+music.play().catch(()=>{});
+
+function nextPage(){
+    document.getElementById("content").classList.add("fade-out");
+    setTimeout(()=>{
+        window.location.href="choice.html";
+    },900);
+}
+</script>
+
+</body>
+</html>
 
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
