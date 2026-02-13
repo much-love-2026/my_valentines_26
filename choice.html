@@ -3,104 +3,60 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Choose Us 💖</title>
+<title>Choice 💝</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
+* {margin:0; padding:0; box-sizing:border-box;}
 
 body {
+    font-family:'Poppins', sans-serif;
     height:100vh;
-    overflow:hidden;
-    font-family: 'Poppins', sans-serif;
+    overflow-x:hidden;
     display:flex;
     justify-content:center;
     align-items:center;
     text-align:center;
     color:white;
-    background: linear-gradient(-45deg,#ff758c,#ff7eb3,#ffd86f,#a18cd1,#84fab0,#8fd3f4);
+    background: linear-gradient(-45deg,#330033,#6a006a,#ff3399,#ff66cc,#ffb3d9);
     background-size:400% 400%;
-    animation:gradientFlow 20s ease infinite;
-    cursor:none;
+    animation:gradientFlow 25s ease infinite;
+    position:relative;
 }
 
+/* Gradient Animation */
 @keyframes gradientFlow {
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
 }
 
 h1 {
     font-family:'Great Vibes',cursive;
-    font-size:3.5rem;
-    margin-bottom:20px;
+    font-size:3.2rem;
+    margin-bottom:25px;
     animation:heartbeat 3s infinite ease-in-out;
 }
 
 @keyframes heartbeat {
     0%,100% {transform:scale(1);}
-    50% {transform:scale(1.05);}
+    50% {transform:scale(1.08);}
 }
 
 .typewriter {
-    font-size:1.4rem;
-    min-height:180px;
-    margin-bottom:30px;
-}
-
-input {
-    padding:15px 25px;
-    border-radius:50px;
-    border:none;
-    width:70%;
-    max-width:400px;
-    text-align:center;
-    font-size:1rem;
-    margin-top:20px;
-}
-
-button {
-    margin-top:20px;
-    padding:15px 40px;
-    border:none;
-    border-radius:50px;
-    font-size:1rem;
-    cursor:pointer;
-    background:linear-gradient(45deg,#ff66cc,#ff3399,#ffb347);
-    color:white;
-    transition:0.4s;
-}
-
-button:hover {
-    transform:scale(1.1);
-    box-shadow:0 0 30px rgba(255,255,255,0.7);
-    background-position:right;
-}
-
-.music {
-    position:absolute;
-    top:20px;
-    right:20px;
     font-size:1.3rem;
-    cursor:pointer;
-    opacity:0.8;
-}
-
-footer {
-    position:absolute;
-    bottom:10px;
-    right:20px;
-    font-size:0.7rem;
-    opacity:0.5;
+    min-height:180px;
+    line-height:1.8rem;
+    margin-bottom:30px;
 }
 
 /* Floating hearts */
 .heart {
     position:absolute;
-    font-size:24px;
-    animation:floatUp 8s linear infinite;
-    opacity:0.6;
+    font-size:28px;
+    animation:floatUp 10s linear infinite;
+    opacity:0.7;
 }
 
 @keyframes floatUp {
@@ -108,7 +64,7 @@ footer {
     to {transform: translateY(-10vh) rotate(360deg);}
 }
 
-/* Spark cursor trail */
+/* Cursor spark trail */
 .spark {
     position:absolute;
     width:6px;
@@ -122,13 +78,60 @@ footer {
     to {transform:scale(0); opacity:0;}
 }
 
-/* Final message styling */
+/* Final message */
 .finalMessage {
     margin-top:40px;
-    font-size:1.6em;
+    font-size:1.6rem;
     opacity:0;
     transition: opacity 3s ease-in-out;
-    color: gold;
+    background: linear-gradient(90deg,#ffd700,#ff69b4,#ff8c00);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    font-weight:bold;
+}
+
+/* Buttons */
+button {
+    margin-top:20px;
+    padding:12px 40px;
+    border:none;
+    border-radius:50px;
+    font-size:1.05rem;
+    cursor:pointer;
+    background:linear-gradient(45deg,#ff66cc,#ff3399,#ffb347);
+    color:white;
+    transition:0.4s;
+}
+
+button:hover {
+    transform:scale(1.1);
+    box-shadow:0 0 35px rgba(255,255,255,0.7);
+}
+
+/* Music button */
+.music {
+    position:absolute;
+    top:20px;
+    right:20px;
+    font-size:1.3rem;
+    cursor:pointer;
+    opacity:0.9;
+}
+
+footer {
+    position:absolute;
+    bottom:10px;
+    right:20px;
+    font-size:0.7rem;
+    opacity:0.5;
+}
+
+/* Responsive */
+@media(max-width:600px){
+    h1 {font-size:2.4rem;}
+    .typewriter {font-size:1.1rem; min-height:160px;}
+    button {padding:10px 25px; font-size:1rem;}
+    .finalMessage {font-size:1.4rem;}
 }
 </style>
 </head>
@@ -136,50 +139,50 @@ footer {
 <body>
 
 <div class="container">
-    <h1>Bridgit… 🌹</h1>
+    <h1>Bridgit… 💌</h1>
     <div class="typewriter" id="text"></div>
     
-    <input type="text" id="choiceInput" placeholder="Type your answer here… 💭">
-    <br>
-    <button onclick="checkChoice()">Unlock Our Destiny ✨</button>
+    <button onclick="goToForever()">Step Into Forever 💝</button>
+    <button onclick="goToEternity()">Next Page 🌌</button>
+    <button onclick="goToInfinity()">Infinity ♾️✨</button>
     
     <div class="finalMessage" id="finalLine">
-        Then from this moment forward…<br>
-        It’s not 2017 anymore. <br>
-        It’s forever. ♾️💖
+        Only real choices matter…<br>
+        And choosing you is everything. 💖
     </div>
 </div>
 
 <div class="music" onclick="toggleMusic()" id="musicBtn">🎵</div>
 
-<footer>Created by BYEGON • Only for her 💌</footer>
+<footer>Made by BYEGON • My universe exists because of you 💌</footer>
 
 <audio id="bgMusic" loop>
     <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-/* Floating hearts randomly */
+/* Floating hearts */
 function createHeart() {
     const heart = document.createElement('div');
     heart.className = 'heart';
     heart.innerHTML = '💖';
-    heart.style.left = Math.random() * 100 + 'vw';
-    heart.style.animationDuration = (6 + Math.random() * 6) + 's';
-    heart.style.fontSize = (20 + Math.random() * 20) + 'px';
+    heart.style.left = Math.random()*100+'vw';
+    heart.style.animationDuration = (7+Math.random()*6)+'s';
+    heart.style.fontSize = (24 + Math.random()*25)+'px';
     document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(), 12000);
+    setTimeout(()=>heart.remove(),12000);
 }
-setInterval(createHeart, 800);
+setInterval(createHeart,600);
 
-/* Typewriter text with emojis */
+/* Typewriter text */
 const lines=[
-"Every moment we shared… 🌸",
-"Every smile you gave… 💭",
-"Every silent heartbeat I kept… 💓",
-"This is your choice now…",
-"Type what you truly feel 💖",
-"Let’s continue our story together… 🌌"
+"Every choice in life matters… 💭",
+"And yet, some choices define everything… 🌌",
+"Choosing you is not a thought.",
+"Not a whim.",
+"Not a fleeting moment…",
+"It is the only choice that feels real. 💖",
+"Now… what will you choose? 🌠"
 ];
 
 let line=0;
@@ -194,7 +197,7 @@ function type() {
             char++;
             setTimeout(type, speed);
         } else {
-            textDiv.innerHTML+="<br><br>";
+            textDiv.innerHTML += "<br><br>";
             line++;
             char=0;
             setTimeout(type,700);
@@ -217,7 +220,7 @@ function toggleMusic(){
     }
 }
 
-/* Spark cursor trail */
+/* Cursor spark trail */
 document.addEventListener("mousemove",(e)=>{
     let spark=document.createElement("div");
     spark.className="spark";
@@ -233,16 +236,17 @@ document.body.addEventListener("click", ()=>{
     if(music.paused){music.play();}
 },{once:true});
 
-/* Check input and show final message */
-function checkChoice() {
-    const input = document.getElementById("choiceInput").value.trim().toLowerCase();
-    if(input === "i choose us"){
-        document.getElementById("finalLine").style.opacity = "1";
-        setTimeout(()=>window.location.href="eternity.html",2500);
-    } else {
-        alert("Read carefully… and type only if your heart feels it. 💭");
-    }
-}
+/* Page navigation */
+function goToForever(){window.location.href="forever.html";}
+function goToEternity(){window.location.href="eternity.html";}
+function goToInfinity(){window.location.href="infinity.html";}
+
+/* Reveal final message on any button click */
+document.querySelectorAll('button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+        document.getElementById("finalLine").style.opacity="1";
+    });
+});
 </script>
 
 </body>
