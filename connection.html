@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGNAL_ANALYSIS // BRIGID</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;500&family=Montserrat:wght@200;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-rose: #ff2d75;
+            --hacker-cyan: #00f2ff;
+            --terminal-bg: #050505;
+            --dim-text: rgba(255, 255, 255, 0.6);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--terminal-bg);
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* --- THE OSCILLOSCOPE (Pulse effect) --- */
+        #oscilloscope {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            opacity: 0.2;
+        }
+
+        .container {
+            position: relative;
+            z-index: 5;
+            width: 90%;
+            max-width: 900px;
+            text-align: center;
+        }
+
+        /* --- LOG BOX --- */
+        .status-box {
+            border: 1px solid var(--hacker-cyan);
+            padding: 10px;
+            display: inline-block;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: var(--hacker-cyan);
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+
+        /* --- CINEMATIC DIALOGUE --- */
+        .chat-bubble {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid var(--neon-rose);
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 600px;
+            text-align: left;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: 1s ease;
+        }
+
+        .chat-bubble.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .chat-label {
+            font-size: 0.6rem;
+            color: var(--neon-rose);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .message {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #efefef;
+        }
+
+        /* --- THE ANALYZER LOGIC --- */
+        #interactive-terminal {
+            margin-top: 50px;
+            height: 100px;
+        }
+
+        .btn-sync {
+            background: transparent;
+            border: 1px solid var(--neon-rose);
+            color: var(--neon-rose);
+            padding: 15px 40px;
+            cursor: pointer;
+            font-family: 'JetBrains Mono';
+            transition: 0.3s;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .btn-sync:hover {
+            background: var(--neon-rose);
+            color: white;
+            box-shadow: 0 0 30px var(--neon-rose);
+        }
+
+        .loading-bar {
+            width: 0%;
+            height: 2px;
+            background: var(--hacker-cyan);
+            margin-top: 20px;
+            transition: 2s ease-in-out;
+        }
+
+        .heart-beat {
+            font-size: 3rem;
+            color: var(--neon-rose);
+            margin-top: 20px;
+            display: none;
+            animation: beat 0.8s infinite alternate;
+        }
+
+        @keyframes beat {
+            from { transform: scale(1); opacity: 0.8; }
+            to { transform: scale(1.2); opacity: 1; }
+        }
+
+        .footer-log {
+            position: fixed;
+            bottom: 20px;
+            font-size: 0.6rem;
+            color: var(--dim-text);
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="oscilloscope"></canvas>
+
+    <div class="container">
+        <div class="status-box">Connection Status: Weak Signal // High Interference</div>
+
+        <div id="msg1" class="chat-bubble">
+            <span class="chat-label">SRC: BYEGON // 23-JAN-2026</span>
+            <p class="message">
+                That day, the handshake was successful. But once I got home, the system crashed. 
+                I didn't call you every hour. I didn't text you every second. 
+            </p>
+        </div>
+
+        <div id="msg2" class="chat-bubble">
+            <span class="chat-label">SRC: ANALYSIS // INTERNAL_LOG</span>
+            <p class="message">
+                It wasn't that I didn't want to talk. It was "Processing Latency." 
+                After 8 years of silence, the truth was so heavy that my ports couldn't handle the bandwidth. 
+            </p>
+        </div>
+
+        <div id="msg3" class="chat-bubble">
+            <span class="chat-label">SRC: CURRENT_STATUS // FEB-2026</span>
+            <p class="message">
+                I know you might be confused. You might be doubting my trust or my feelings 
+                because of how quiet I’ve been. But Brigid, look at the data... 
+                I'm still here. I'm building this for you.
+            </p>
+        </div>
+
+        <div id="interactive-terminal">
+            <button class="btn-sync" onclick="syncHearts()">SYNCHRONIZE SIGNALS</button>
+            <div id="bar" class="loading-bar"></div>
+            <div id="heart" class="heart-beat">❤️</div>
+        </div>
+    </div>
+
+    <div class="footer-log">
+        [LOG]: CALIBRATING EMOTIONAL FREQUENCY... NOISE_REDUCTION_ENABLED
+    </div>
+
+    <script>
+        // Reveal messages one by one
+        setTimeout(() => document.getElementById('msg1').classList.add('active'), 1000);
+        setTimeout(() => document.getElementById('msg2').classList.add('active'), 3000);
+        setTimeout(() => document.getElementById('msg3').classList.add('active'), 5000);
+
+        function syncHearts() {
+            const bar = document.getElementById('bar');
+            const heart = document.getElementById('heart');
+            bar.style.width = "100%";
+            
+            setTimeout(() => {
+                heart.style.display = "block";
+                document.querySelector('.status-box').innerHTML = "Connection Status: STABLE // ENCRYPTED FOREVER";
+                document.querySelector('.status-box').style.color = "#00ff41";
+                document.querySelector('.status-box').style.borderColor = "#00ff41";
+                
+                // Final Redirection after 3 seconds
+                setTimeout(() => {
+                    window.location.href = "forever.html";
+                }, 3000);
+            }, 2000);
+        }
+
+        // Oscilloscope Background Animation
+        const canvas = document.getElementById('oscilloscope');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let x = 0;
+        function drawWave() {
+            ctx.fillStyle = "rgba(5, 5, 5, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.beginPath();
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = '#ff2d75';
+            
+            ctx.moveTo(0, canvas.height / 2);
+            for (let i = 0; i < canvas.width; i++) {
+                ctx.lineTo(i, canvas.height / 2 + Math.sin(i * 0.01 + x) * 50);
+            }
+            ctx.stroke();
+            x += 0.1;
+            requestAnimationFrame(drawWave);
+        }
+        drawWave();
+    </script>
+</body>
+</html>
