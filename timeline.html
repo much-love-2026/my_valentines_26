@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEMORY_RECOVERY // BRIGID</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;500&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-rose: #ff2d75;
+            --hacker-cyan: #00f2ff;
+            --bg-dark: #080808;
+            --line-color: rgba(255, 45, 117, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+            overflow-x: hidden;
+        }
+
+        /* --- THE LOGIC LINE (SCROLL PROGRESS) --- */
+        .scroll-line {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            width: 2px;
+            height: 0%; /* Animated by JS */
+            background: linear-gradient(to bottom, var(--hacker-cyan), var(--neon-rose));
+            box-shadow: 0 0 15px var(--neon-rose);
+            z-index: 1;
+            transform: translateX(-50%);
+        }
+
+        /* --- TIMELINE CONTAINER --- */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 100px auto;
+            padding: 40px 0;
+        }
+
+        .epoch-node {
+            position: relative;
+            width: 100%;
+            margin-bottom: 150px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .epoch-node:nth-child(even) { flex-direction: row-reverse; }
+
+        /* --- THE MEMORY CONTENT --- */
+        .memory-card {
+            width: 45%;
+            padding: 30px;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            position: relative;
+            transition: 0.5s ease;
+            opacity: 0; /* Fade in on scroll */
+            transform: translateY(50px);
+        }
+
+        .memory-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+            border-color: var(--neon-rose);
+        }
+
+        .year-stamp {
+            font-size: 3rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.05);
+            position: absolute;
+            top: -40px;
+            left: 10px;
+            z-index: -1;
+        }
+
+        .memory-title {
+            color: var(--hacker-cyan);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .memory-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #ccc;
+        }
+
+        /* --- THE CENTRAL HUB (THE DOT) --- */
+        .node-point {
+            position: absolute;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background: var(--bg-dark);
+            border: 2px solid var(--neon-rose);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            box-shadow: 0 0 10px var(--neon-rose);
+        }
+
+        /* --- TOP HEADER --- */
+        .archive-header {
+            text-align: center;
+            padding: 50px;
+            margin-bottom: 50px;
+        }
+
+        .status-scan {
+            color: var(--neon-rose);
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        /* --- FOOTER CTA --- */
+        .next-step {
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        .btn-continue {
+            background: transparent;
+            border: 1px solid var(--hacker-cyan);
+            color: var(--hacker-cyan);
+            padding: 15px 40px;
+            font-family: 'JetBrains Mono';
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn-continue:hover {
+            background: var(--hacker-cyan);
+            color: #000;
+            box-shadow: 0 0 30px var(--hacker-cyan);
+        }
+
+        @media (max-width: 768px) {
+            .epoch-node, .epoch-node:nth-child(even) { flex-direction: column; }
+            .memory-card { width: 90%; margin-bottom: 30px; }
+            .scroll-line, .node-point { left: 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scroll-line" id="scrollLine"></div>
+
+    <header class="archive-header">
+        <p class="status-scan">[SYSTEM]: DECRYPTING LOGS FOR USER: BRIGID...</p>
+        <h1 style="font-size: 2.5rem; letter-spacing: 5px;">THE TIMELINE</h1>
+    </header>
+
+    <div class="timeline">
+        
+        <div class="epoch-node">
+            <div class="node-point"></div>
+            <div class="memory-card">
+                <span class="year-stamp">2017</span>
+                <h2 class="memory-title">> The Initial Handshake</h2>
+                <p class="memory-text">
+                    Class Eight. We were young, and the world was small. 
+                    I remember you being incredibly eye-catchy, but I was just a boy with a 
+                    silent script running in my head. You were the first "variable" I couldn't solve.
+                </p>
+            </div>
+        </div>
+
+        <div class="epoch-node">
+            <div class="node-point"></div>
+            <div class="memory-card">
+                <span class="year-stamp">2018-2022</span>
+                <h2 class="memory-title">> Packet Loss (The Silence)</h2>
+                <p class="memory-text">
+                    Secondary school separated our paths. No calls, no texts. 
+                    I found you on Facebook once and sent a message—a ping sent into the void. 
+                    No response. Most systems would have timed out... mine didn't.
+                </p>
+            </div>
+        </div>
+
+        <div class="epoch-node">
+            <div class="node-point"></div>
+            <div class="memory-card">
+                <span class="year-stamp">2023-2025</span>
+                <h2 class="memory-title">> Searching for Hacks ❤️</h2>
+                <p class="memory-text">
+                    I joined university and the search intensified. With very little hope, 
+                    I looked for your digits. I finally saved your contact as <b>"Hacks ❤️"</b>. 
+                    I kept my feelings encrypted, talking infrequently, waiting for a stable connection.
+                </p>
+            </div>
+        </div>
+
+        <div class="epoch-node">
+            <div class="node-point"></div>
+            <div class="memory-card">
+                <span class="year-stamp">JAN 2026</span>
+                <h2 class="memory-title">> Port 01.23 Open</h2>
+                <p class="memory-text">
+                    January 23rd. I came just to say hello, but you did the unthinkable. 
+                    You spoke the words I'd been holding for 8 years. For the first time, 
+                    the encryption was broken. I was stunned... I hope you could tell.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="next-step">
+        <p style="margin-bottom: 30px; opacity: 0.6;">Tracing the connection to the present...</p>
+        <a href="connection.html" class="btn-continue">RE-ESTABLISH CONNECTION</a>
+    </div>
+
+    <script>
+        // Scroll Logic: Animates the central line and fades in cards
+        window.addEventListener('scroll', () => {
+            const scrollLine = document.getElementById('scrollLine');
+            const cards = document.querySelectorAll('.memory-card');
+            const windowHeight = window.innerHeight;
+            const fullHeight = document.body.scrollHeight - windowHeight;
+            const scrolled = (window.scrollY / fullHeight) * 100;
+
+            // Update line height
+            scrollLine.style.height = scrolled + '%';
+
+            // Fade in cards
+            cards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                if (cardTop < windowHeight * 0.8) {
+                    card.classList.add('visible');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
