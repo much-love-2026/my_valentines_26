@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>If You Stay… 🌌</title>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    background: black;
+    color: #f8f8f8;
+    font-family: 'Georgia', serif;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.container {
+    width: 90%;
+    max-width: 750px;
+}
+
+#star {
+    font-size: 30px;
+    opacity: 0;
+    animation: appear 4s forwards;
+}
+
+@keyframes appear {
+    to {opacity: 1;}
+}
+
+#text {
+    margin-top: 30px;
+    font-size: 1.3em;
+    line-height: 1.9em;
+    min-height: 200px;
+}
+
+.final {
+    margin-top: 40px;
+    font-size: 1.6em;
+    opacity: 0;
+    transition: opacity 3s ease-in-out;
+    color: #ffd700;
+}
+
+button {
+    margin-top: 40px;
+    padding: 15px 40px;
+    border: 1px solid #ffd700;
+    background: transparent;
+    color: #ffd700;
+    font-size: 1em;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+button:hover {
+    background: #ffd700;
+    color: black;
+}
+</style>
+</head>
+
+<body>
+
+<audio autoplay loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-tomorrow.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+
+<div id="star">✨</div>
+
+<div id="text"></div>
+
+<div class="final" id="finalLine">
+Then let’s not call this a moment.
+
+Let’s call it the beginning. 💍✨
+</div>
+
+<button onclick="reveal()">Stay With Me… 🌙</button>
+
+</div>
+
+<script>
+
+const message = `If you stay…
+
+Not because it is Valentine’s.
+Not because it sounds beautiful.
+
+But because you feel safe here…
+
+Then I promise you something rare.
+
+Peace.
+
+Growth.
+
+Consistency.
+
+No games.
+No disappearing.
+No confusion.
+
+Just two people…
+
+Choosing each other —
+over and over —
+every single day.
+
+I don’t need noise.
+
+I need real.
+
+And with you…
+
+I see real.
+
+So I won’t rush you.
+
+I won’t pressure you.
+
+But I will be clear.
+
+If you stay…
+
+I stay.
+
+Fully.
+Honestly.
+Intentionally.`;
+
+let i = 0;
+
+function typeWriter() {
+    if (i < message.length) {
+        document.getElementById("text").innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeWriter, 45);
+    }
+}
+
+setTimeout(typeWriter, 3000);
+
+function reveal() {
+    document.getElementById("finalLine").style.opacity = "1";
+}
+
+</script>
+
+</body>
+</html>
