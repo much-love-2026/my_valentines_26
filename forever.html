@@ -3,234 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INFINITY_PROTOCOL // BRIGID</title>
+    <title>FINAL_DECRYPTION // BRIGID</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=JetBrains+Mono:wght@300;500&family=Montserrat:wght@200;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --gold: #ffcc33;
-            --deep-space: #020205;
+            --deep-space: #050508;
             --rose: #ff2d75;
-            --white: #ffffff;
+            --hacker-cyan: #00f2ff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: var(--deep-space);
-            color: var(--white);
+            background: radial-gradient(circle at center, #0f0f1a 0%, var(--deep-space) 100%);
+            color: #fff;
             font-family: 'Montserrat', sans-serif;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow-x: hidden;
         }
 
-        /* --- THE INFINITY BACKGROUND (Starfield) --- */
-        #starfield {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 0;
-        }
+        #canvas { position: fixed; top: 0; left: 0; z-index: 1; opacity: 0.6; }
 
-        .container {
+        .content-vault {
             position: relative;
             z-index: 10;
-            text-align: center;
             width: 90%;
-            max-width: 800px;
-            padding: 40px;
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            max-width: 750px;
+            padding: 50px;
+            background: rgba(10, 10, 15, 0.85);
+            border: 1px solid rgba(255, 45, 117, 0.2);
+            backdrop-filter: blur(20px);
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .protocol-header {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--hacker-cyan);
+            letter-spacing: 5px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
         }
 
         .title {
             font-family: 'Great Vibes', cursive;
             font-size: 4.5rem;
-            margin-bottom: 20px;
-            background: linear-gradient(to right, var(--rose), var(--gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            margin-bottom: 25px;
+            color: #fff;
+            text-shadow: 0 0 20px var(--rose);
         }
 
-        /* --- THE DECRYPTION SLIDER --- */
-        .slider-box {
+        /* --- THE EMOTIONAL CORE --- */
+        .statement {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #d1d1d1;
+            text-align: left;
+            margin-bottom: 30px;
+            border-left: 2px solid var(--rose);
+            padding-left: 20px;
+        }
+
+        .highlight { color: var(--gold); font-weight: 700; }
+
+        /* --- INTERACTIVE SLIDER (THE HANDSHAKE) --- */
+        .decryption-slider {
             margin: 40px 0;
-        }
-
-        .slider-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            letter-spacing: 3px;
-            color: var(--rose);
-            margin-bottom: 15px;
-            display: block;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
         }
 
         input[type=range] {
             width: 100%;
-            -webkit-appearance: none;
-            background: rgba(255, 255, 255, 0.1);
-            height: 4px;
-            border-radius: 5px;
-            outline: none;
-        }
-
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 20px; height: 20px;
-            background: var(--rose);
-            border-radius: 50%;
             cursor: pointer;
-            box-shadow: 0 0 15px var(--rose);
+            accent-color: var(--rose);
         }
 
-        /* --- THE HIDDEN MESSAGE --- */
-        #final-message {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            font-weight: 200;
-            color: rgba(255, 255, 255, 0); /* Hidden initially */
-            transition: 0.5s;
+        #reveal-text {
+            opacity: 0;
             filter: blur(10px);
+            transition: 1.5s ease;
+            margin-top: 30px;
         }
 
-        .highlight {
-            color: var(--gold);
-            font-weight: 700;
-        }
-
-        /* --- THE ETERNAL BUTTON --- */
-        #forever-btn {
+        /* --- THE CALL TO ACTION --- */
+        .action-btns {
             margin-top: 40px;
-            padding: 15px 40px;
-            background: transparent;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            font-family: 'JetBrains Mono';
-            font-size: 0.8rem;
-            letter-spacing: 5px;
-            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
             opacity: 0;
             transition: 1s;
         }
 
-        #forever-btn:hover {
+        .btn-forever {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 15px;
+            font-family: 'JetBrains Mono';
+            text-decoration: none;
+            letter-spacing: 2px;
+            transition: 0.4s;
+            font-size: 0.8rem;
+        }
+
+        .btn-forever:hover {
             background: var(--gold);
             color: #000;
-            box-shadow: 0 0 40px var(--gold);
+            box-shadow: 0 0 30px var(--gold);
         }
 
-        /* --- SCANLINE EFFECT --- */
-        .scanline {
-            width: 100%;
-            height: 100px;
-            z-index: 15;
-            background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(255, 45, 117, 0.1) 50%, rgba(0, 0, 0, 0) 100%);
-            opacity: 0.1;
-            position: absolute;
-            bottom: 100%;
-            animation: scan 8s linear infinite;
+        .mobile-hint {
+            font-size: 0.6rem;
+            margin-top: 20px;
+            color: var(--rose);
+            opacity: 0.6;
+            font-style: italic;
         }
-
-        @keyframes scan {
-            0% { bottom: 100%; }
-            100% { bottom: -100%; }
-        }
-
     </style>
 </head>
 <body>
 
-    <canvas id="starfield"></canvas>
-    <div class="scanline"></div>
+    <canvas id="canvas"></canvas>
 
-    <div class="container">
-        <h1 class="title">Brigid...</h1>
-        
-        <div class="slider-box">
-            <span class="slider-label">DECRYPTING MY CORE INTENTIONS: <span id="percent">0</span>%</span>
-            <input type="range" id="decryptSlider" min="0" max="100" value="0">
-        </div>
+    <div class="content-vault">
+        <p class="protocol-header">Status: Finalizing Connection Protocol</p>
+        <h1 class="title">Brigid,</h1>
 
-        <div id="final-message">
+        <div class="statement">
             <p>
-                I know I’ve been quiet. I know the "Frequency" of my calls hasn't always 
-                matched the depth of my heart. But the truth is, I’ve been 
-                <span class="highlight">building a future</span> for us in my head since 2017.
+                I know you might be <span class="highlight">confused</span>. You might think my silence 
+                since January 23rd means my heart is offline. 
             </p>
-            <br>
-            <p>
-                You are not just a Valentine. You are the only person I want to share 
-                my "Source Code" with. I want to build, to protect, and to finally 
-                show you the version of me that you deserve. 
-            </p>
-            <br>
-            <p style="font-size: 1.5rem; font-family: 'Great Vibes';">
-                I don't just want to be your Valentine. <br>
-                <span class="highlight">I want to be your 'Always'.</span>
+            <p style="margin-top: 15px;">
+                The truth? After 8 years of waiting, finally hearing you say those words 
+                caused a "System Overload." I wasn't being cold; I was processing the fact 
+                that the girl from Class Eight finally <span class="highlight">belongs in my future.</span>
             </p>
         </div>
 
-        <button id="forever-btn" onclick="confirmForever()">INITIALIZE ETERNITY</button>
+        <div class="decryption-slider">
+            <p style="font-size: 0.7rem; color: var(--hacker-cyan); margin-bottom: 10px;">SLIDE TO DECRYPT WHERE YOU LIE IN MY LIFE:</p>
+            <input type="range" id="slider" min="0" max="100" value="0">
+            
+            <div id="reveal-text">
+                <p style="font-size: 1.2rem; font-weight: 300; line-height: 1.6;">
+                    You are the <span class="highlight">Root Access</span> to my life. <br>
+                    I don't just want a Valentine's date. <br>
+                    I am building a life where you are the <span class="highlight">permanent admin</span> of my heart.
+                </p>
+                <p style="font-family: 'Great Vibes'; font-size: 2.5rem; margin-top: 20px; color: var(--gold);">
+                    I want to be your 'Always'.
+                </p>
+            </div>
+        </div>
+
+        <div class="action-btns" id="btns">
+            <a href="tel:+2547XXXXXXXX" class="btn-forever">CLICK TO START OUR FOREVER (CALL ME)</a>
+            <p style="font-size: 0.7rem; opacity: 0.5;">No more silence. No more confusion.</p>
+        </div>
+
+        <p class="mobile-hint">// Built by BYEGON. For the woman who changed the code.</p>
     </div>
 
     <script>
-        const slider = document.getElementById('decryptSlider');
-        const message = document.getElementById('final-message');
-        const percent = document.getElementById('percent');
-        const btn = document.getElementById('forever-btn');
+        const slider = document.getElementById('slider');
+        const reveal = document.getElementById('reveal-text');
+        const btns = document.getElementById('btns');
 
-        slider.addEventListener('input', () => {
-            const val = slider.value;
-            percent.innerText = val;
+        slider.addEventListener('input', (e) => {
+            let val = e.target.value;
+            reveal.style.opacity = val / 100;
+            reveal.style.filter = `blur(${(100 - val) / 5}px)`;
             
-            // Gradually reveal message based on slider
-            message.style.color = `rgba(255, 255, 255, ${val / 100})`;
-            message.style.filter = `blur(${(100 - val) / 10}px)`;
-
-            if (val == 100) {
-                btn.style.opacity = "1";
-            } else {
-                btn.style.opacity = "0";
+            if(val == 100) {
+                btns.style.opacity = "1";
             }
         });
 
-        function confirmForever() {
-            alert("Protocol: FOREVER established. Check your phone, Brigid. I'm coming for you.");
-            // Optional: Redirect to a final contact page or just stay here
-        }
-
-        // --- STARFIELD LOGIC ---
-        const canvas = document.getElementById('starfield');
+        // Background Animation (Floating 0, 1, and ❤️)
+        const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        const stars = [];
-        for (let i = 0; i < 400; i++) {
-            stars.push({
+        let particles = [];
+        for(let i=0; i<70; i++) {
+            particles.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                size: Math.random() * 2,
-                speed: Math.random() * 0.5
+                text: Math.random() > 0.5 ? "1" : "❤️",
+                speed: 0.5 + Math.random()
             });
         }
 
         function animate() {
-            ctx.fillStyle = '#020205';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#fff';
-            stars.forEach(s => {
-                ctx.beginPath();
-                ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-                ctx.fill();
-                s.y += s.speed;
-                if (s.y > canvas.height) s.y = 0;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(255, 45, 117, 0.3)";
+            ctx.font = "14px JetBrains Mono";
+            particles.forEach(p => {
+                ctx.fillText(p.text, p.x, p.y);
+                p.y -= p.speed;
+                if(p.y < 0) p.y = canvas.height;
             });
             requestAnimationFrame(animate);
         }
