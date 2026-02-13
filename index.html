@@ -1,169 +1,330 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Brigid</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SECURE_LINK // ACCESS_REQUEST: BRIGID</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;500&family=Playfair+Display:ital,wght@0,400;1,700&family=Montserrat:wght@200;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-rose: #ff2d75;
+            --hacker-cyan: #00f2ff;
+            --terminal-bg: #050505;
+            --text-main: #e0e0e0;
+            --glass-border: rgba(255, 45, 117, 0.3);
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: cell; }
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        body {
+            background-color: var(--terminal-bg);
+            color: var(--text-main);
+            font-family: 'JetBrains Mono', monospace;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+        }
 
-body {
-    height: 100vh;
-    overflow: hidden;
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #1b1b2f);
-    background-size: 400% 400%;
-    animation: gradientFlow 18s ease infinite;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    text-align: center;
-}
+        /* --- THE BACKGROUND CANVAS (MATRIX RAIN MEETS NEBULA) --- */
+        #canvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            opacity: 0.6;
+        }
 
-@keyframes gradientFlow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
+        /* --- VULNERABILITY SCANNER LINE --- */
+        .scan-line {
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, transparent, var(--neon-rose), transparent);
+            box-shadow: 0 0 15px var(--neon-rose);
+            z-index: 10;
+            top: -10%;
+            animation: scanning 6s linear infinite;
+        }
 
-.container {
-    max-width: 700px;
-    padding: 20px;
-}
+        @keyframes scanning {
+            0% { top: -10%; }
+            100% { top: 110%; }
+        }
 
-h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 3.2rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    margin-bottom: 25px;
-    opacity: 0;
-    animation: fadeIn 2s ease forwards;
-}
+        /* --- THE TERMINAL VAULT --- */
+        .vault-container {
+            position: relative;
+            z-index: 5;
+            width: 90%;
+            max-width: 800px;
+            background: rgba(10, 10, 10, 0.9);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            border-radius: 4px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 0 50px rgba(0, 0, 0, 1), inset 0 0 20px rgba(255, 45, 117, 0.1);
+            transform-style: preserve-3d;
+        }
 
-.message {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    font-weight: 300;
-    opacity: 0;
-    margin-bottom: 45px;
-    animation: fadeIn 2s ease forwards;
-    animation-delay: 1.2s;
-}
+        /* --- BOOT SEQUENCE TEXT --- */
+        #boot-log {
+            font-size: 0.8rem;
+            color: var(--neon-rose);
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
 
-button {
-    padding: 14px 36px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 40px;
-    background: rgba(255,255,255,0.08);
-    color: white;
-    cursor: pointer;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.15);
-    transition: all 0.4s ease;
-    opacity: 0;
-    animation: fadeIn 2s ease forwards;
-    animation-delay: 2.2s;
-}
+        /* --- THE ROMANTIC REVEAL --- */
+        #main-interface {
+            display: none;
+            animation: fadeInScale 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
 
-button:hover {
-    background: rgba(255,255,255,0.18);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-}
+        .brigid-header {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-style: italic;
+            color: #fff;
+            text-shadow: 0 0 15px var(--neon-rose);
+            margin-bottom: 5px;
+        }
 
-@keyframes fadeIn {
-    to { opacity: 1; }
-}
+        .status-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            background: var(--neon-rose);
+            color: white;
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
 
-.fade-out {
-    animation: fadeOut 1s ease forwards;
-}
+        .narrative {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 200;
+            line-height: 1.8;
+            font-size: 1rem;
+            margin-bottom: 40px;
+            color: #ccc;
+        }
 
-@keyframes fadeOut {
-    to {
-        opacity: 0;
-        transform: scale(0.98);
-    }
-}
+        /* --- INTERACTIVE PROMPTS --- */
+        .choice-row {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
 
-/* Soft floating particles */
-.particle {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: white;
-    border-radius: 50%;
-    opacity: 0.4;
-    animation: float 20s linear infinite;
-}
+        .terminal-btn {
+            background: transparent;
+            border: 1px solid var(--neon-rose);
+            color: var(--neon-rose);
+            padding: 12px 25px;
+            font-family: 'JetBrains Mono';
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            position: relative;
+        }
 
-@keyframes float {
-    from {
-        transform: translateY(100vh);
-    }
-    to {
-        transform: translateY(-10vh);
-    }
-}
-</style>
+        .terminal-btn:hover {
+            background: var(--neon-rose);
+            color: #fff;
+            box-shadow: 0 0 20px var(--neon-rose);
+            transform: scale(1.05);
+        }
+
+        /* --- PASSWORD INPUT --- */
+        #decryption-zone {
+            display: none;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .key-input {
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid var(--neon-rose);
+            color: #fff;
+            font-size: 2rem;
+            text-align: center;
+            width: 180px;
+            outline: none;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+        }
+
+        .key-input::placeholder { font-size: 1rem; letter-spacing: 2px; opacity: 0.5; }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.9) translateZ(-50px); }
+            to { opacity: 1; transform: scale(1) translateZ(0); }
+        }
+
+        .footer-metadata {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 40px;
+            font-size: 0.6rem;
+            opacity: 0.4;
+            letter-spacing: 1px;
+        }
+
+        /* --- ERROR SHAKE --- */
+        .shake { animation: shakeEffect 0.4s; }
+        @keyframes shakeEffect {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="container" id="mainContent">
-    <h1>Brigid</h1>
+    <canvas id="canvas"></canvas>
+    <div class="scan-line"></div>
 
-    <div class="message" id="typeText">
-        There is something I built quietly.<br><br>
-        Not rushed.<br>
-        Not random.<br><br>
-        But intentional.<br><br>
-        And if you’re willing…<br>
-        I’d like you to see it.
+    <div class="vault-container">
+        <div id="boot-log"></div>
+
+        <div id="main-interface">
+            <h1 class="brigid-header">Brigid.</h1>
+            <div class="status-badge">Permanent Resident of My Thoughts</div>
+            
+            <p class="narrative">
+                Eight years ago, a process started in the background of my life. <br>
+                It survived every system update, every move, and every silence. <br>
+                I tried to describe it using oral syntax, but the language failed. <br>
+                So, I built this environment for you. 
+            </p>
+
+            <div id="action-prompt">
+                <p style="margin-bottom: 20px; color: var(--hacker-cyan);">Initialize Deep-Scan of my heart?</p>
+                <div class="choice-row">
+                    <button class="terminal-btn" onclick="initDecryption()">[ Execute ]</button>
+                    <button class="terminal-btn" id="no-btn" onmouseover="evade(this)">[ Abort ]</button>
+                </div>
+            </div>
+
+            <div id="decryption-zone">
+                <p style="color: var(--neon-rose); margin-bottom: 15px; font-size: 0.7rem;">DECRYPTION KEY REQUIRED: (The Year Our Story Began)</p>
+                <input type="text" id="passkey" class="key-input" maxlength="4" placeholder="YYYY" autocomplete="off">
+                <br>
+                <button class="terminal-btn" onclick="verifyKey()">Unlock Vault</button>
+            </div>
+        </div>
     </div>
 
-    <button onclick="enterStory()">Step Inside</button>
-</div>
+    <div class="footer-metadata">
+        <span>DEVELOPER: BYEGON</span>
+        <span>ENCRYPTION: AES-256-LOVE</span>
+        <span>STATUS: PENDING_HANDSHAKE</span>
+    </div>
 
-<audio id="bgMusic" loop>
-    <source src="soft-piano.mp3" type="audio/mpeg">
-</audio>
+    <audio id="ambient-music" loop>
+        <source src="assets/ambient-romance.mp3" type="audio/mpeg">
+    </audio>
 
-<script>
-function enterStory() {
-    const content = document.getElementById("mainContent");
-    const music = document.getElementById("bgMusic");
+    <script>
+        // 1. Terminal Boot Simulation
+        const logs = [
+            "> INITIALIZING BYEGON_OS VERSION 20.26.02...",
+            "> BYPASSING EMOTIONAL FIREWALLS...",
+            "> SEARCHING FOR UNIQUE_ID: 'BRIGID'...",
+            "> MATCH FOUND: [2017 Archive Located]",
+            "> VULNERABILITY DETECTED: Heart fully exposed.",
+            "> STATUS: Ready for user input."
+        ];
 
-    music.volume = 0.3;
-    music.play().catch(() => {});
+        let logIdx = 0;
+        const logContainer = document.getElementById('boot-log');
 
-    content.classList.add("fade-out");
+        function runBoot() {
+            if (logIdx < logs.length) {
+                const line = document.createElement('div');
+                line.textContent = logs[logIdx];
+                logContainer.appendChild(line);
+                logIdx++;
+                setTimeout(runBoot, 700);
+            } else {
+                setTimeout(() => {
+                    logContainer.style.display = 'none';
+                    document.getElementById('main-interface').style.display = 'block';
+                }, 1000);
+            }
+        }
 
-    setTimeout(() => {
-        window.location.href = "forever.html";
-    }, 900);
-}
+        // 2. The "No" Button Evasion (Playful CS touch)
+        function evade(btn) {
+            btn.style.position = 'absolute';
+            btn.style.left = Math.random() * 80 + '%';
+            btn.style.top = Math.random() * 80 + '%';
+        }
 
-// Create floating particles
-for (let i = 0; i < 40; i++) {
-    let particle = document.createElement("div");
-    particle.classList.add("particle");
-    particle.style.left = Math.random() * 100 + "vw";
-    particle.style.animationDuration = (15 + Math.random() * 10) + "s";
-    particle.style.opacity = Math.random();
-    document.body.appendChild(particle);
-}
-</script>
+        // 3. Decryption Logic
+        function initDecryption() {
+            document.getElementById('ambient-music').play();
+            document.getElementById('action-prompt').style.display = 'none';
+            document.getElementById('decryption-zone').style.display = 'block';
+        }
 
+        function verifyKey() {
+            const input = document.getElementById('passkey');
+            const container = document.querySelector('.vault-container');
+            
+            if (input.value === "2017") {
+                // Success: Transition to Page 2
+                container.style.borderColor = "#00ff41";
+                container.style.boxShadow = "0 0 100px rgba(0, 255, 65, 0.4)";
+                setTimeout(() => {
+                    window.location.href = "timeline.html"; // The next page in your plan
+                }, 1200);
+            } else {
+                // Failure: Shake effect
+                container.classList.add('shake');
+                input.value = "";
+                setTimeout(() => container.classList.remove('shake'), 400);
+                alert("ACCESS DENIED: Memory mismatch. Think back to the origin...");
+            }
+        }
+
+        // 4. Matrix-Heart Background Animation
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const alphabet = "010101❤️010101";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = Array.from({ length: columns }).fill(1);
+
+        function draw() {
+            ctx.fillStyle = "rgba(5, 5, 5, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#ff2d75";
+            ctx.font = fontSize + "px monospace";
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        setInterval(draw, 50);
+
+        window.onload = runBoot;
+    </script>
 </body>
 </html>
