@@ -3,147 +3,213 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bridgit - Valentine’s Journey</title>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<title>For Bridgit ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
 <style>
-/* --- Global Styles --- */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; font-family: 'Roboto', sans-serif; overflow: hidden; background: linear-gradient(135deg, #6b0f1a, #f8b5b5); color: #fff; }
-
-/* --- Hero Container --- */
-.hero {
-  position: relative; width: 100%; height: 100%; display: flex; flex-direction: column;
-  justify-content: center; align-items: center; text-align: center; padding: 20px;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-/* --- Typewriter --- */
-.typewriter { font-size: 2.4em; font-family: 'Great Vibes', cursive; min-height: 140px; position: relative; z-index: 2; }
-
-/* --- Password Container --- */
-.password-container { margin-top: 30px; opacity: 0; transition: opacity 1s ease-in; display: flex; flex-direction: column; align-items: center; }
-input[type="text"] { padding: 14px; border-radius: 25px; border: none; outline: none; width: 250px; text-align: center; font-size: 1em; margin-bottom: 15px; }
-button { padding: 12px 25px; border-radius: 25px; border: none; background: #ff6b81; color: #fff; font-weight: bold; cursor: pointer; transition: 0.3s; }
-button:hover { background: #ff4b5c; transform: scale(1.05); }
-
-/* --- Smile Easter Egg --- */
-.smile-line { font-size: 0.9em; margin-top: 20px; cursor: pointer; opacity: 0.85; text-decoration: underline; }
-.smile-popup { margin-top: 10px; font-size: 1em; color: #ffeaea; display: none; }
-
-/* --- Footer micro text --- */
-.footer-note { position: absolute; bottom: 5px; right: 10px; font-size: 0.7em; opacity: 0.4; font-style: italic; z-index: 2; }
-
-/* --- Floating Particles --- */
-.particle { position: absolute; width: 8px; height: 8px; background: rgba(255,255,255,0.7); border-radius: 50%; animation: float 8s infinite; }
-@keyframes float {
-  0% { transform: translateY(0) translateX(0); }
-  50% { transform: translateY(-300px) translateX(100px); }
-  100% { transform: translateY(0) translateX(0); }
+body{
+    height:100vh;
+    overflow:hidden;
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(-45deg,#ff9a9e,#fad0c4,#fbc2eb,#a18cd1,#84fab0,#8fd3f4);
+    background-size:400% 400%;
+    animation:gradientFlow 18s ease infinite;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
 }
 
-/* --- Heartbeat pulse --- */
-@keyframes heartbeat { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+/* Smooth Galaxy Gradient */
+@keyframes gradientFlow{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
 
-/* --- Shake animation --- */
-@keyframes shake {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  50% { transform: translateX(5px); }
-  75% { transform: translateX(-5px); }
-  100% { transform: translateX(0); }
+/* Floating glow particles */
+.particle{
+    position:absolute;
+    width:6px;
+    height:6px;
+    background:white;
+    border-radius:50%;
+    opacity:0.6;
+    animation:float 12s infinite ease-in-out;
+}
+
+@keyframes float{
+    0%{transform:translateY(0px);}
+    50%{transform:translateY(-300px);}
+    100%{transform:translateY(0px);}
+}
+
+.container{
+    text-align:center;
+    padding:20px;
+    z-index:2;
+}
+
+h1{
+    font-family:'Great Vibes',cursive;
+    font-size:3rem;
+    margin-bottom:20px;
+    animation:fadeIn 2s ease forwards;
+}
+
+.typewriter{
+    font-size:1.3rem;
+    min-height:120px;
+    margin-bottom:30px;
+}
+
+@keyframes fadeIn{
+    from{opacity:0;}
+    to{opacity:1;}
+}
+
+/* Magical glowing button */
+button{
+    padding:14px 35px;
+    border:none;
+    border-radius:50px;
+    font-size:1rem;
+    cursor:pointer;
+    background:linear-gradient(45deg,#ff758c,#ff7eb3,#ffd86f,#a18cd1);
+    background-size:300%;
+    color:white;
+    transition:0.4s ease;
+}
+
+button:hover{
+    transform:scale(1.1);
+    background-position:right;
+    box-shadow:0 0 25px rgba(255,255,255,0.7);
+}
+
+/* Music button */
+.music{
+    position:absolute;
+    top:20px;
+    right:20px;
+    font-size:1.2rem;
+    cursor:pointer;
+}
+
+/* Hidden message popup */
+.popup{
+    margin-top:20px;
+    display:none;
+    font-size:1rem;
+    opacity:0.9;
+}
+
+footer{
+    position:absolute;
+    bottom:10px;
+    right:20px;
+    font-size:0.7rem;
+    opacity:0.5;
 }
 </style>
 </head>
+
 <body>
 
-<div class="hero">
-  <div class="typewriter" id="typewriter"></div>
+<div class="container">
 
-  <div class="password-container" id="passwordContainer">
-    <input type="text" id="passwordInput" placeholder="Enter the year…">
-    <button id="unlockBtn">Unlock Our World ❤️</button>
-  </div>
+    <h1>Bridgit… 🌹</h1>
 
-  <div class="smile-line" id="smileLine">Click here if you’re smiling right now.</div>
-  <div class="smile-popup" id="smilePopup">That smile… That’s the reason this exists. ❤️</div>
+    <div class="typewriter" id="text"></div>
 
-  <div class="footer-note">Made by BYEGON, for the woman who changed his world.</div>
+    <button onclick="enterWorld()">Step Into Our World ✨💖</button>
+
+    <div class="popup" id="popup">You smiled, didn’t you? 😊 That’s my favorite sight in the universe 💫</div>
+
 </div>
 
-<!-- Floating particles -->
-<script>
-for(let i=0;i<35;i++){
-  let p = document.createElement('div');
-  p.className='particle';
-  p.style.left=Math.random()*100+'vw';
-  p.style.top=Math.random()*100+'vh';
-  p.style.animationDelay=Math.random()*8+'s';
-  p.style.width=(4+Math.random()*8)+'px';
-  p.style.height=p.style.width;
-  document.body.appendChild(p);
-}
-</script>
+<div class="music" onclick="toggleMusic()" id="musicBtn">🎵</div>
+
+<footer>Made by BYEGON, for the girl who changed everything 💌</footer>
+
+<audio id="bgMusic" loop>
+    <source src="soft-romantic-piano.mp3" type="audio/mpeg">
+</audio>
 
 <script>
-/* --- Typewriter Lines with Heartbeat --- */
-const typewriterText = [
-"Bridgit…",
-"Before you go any further…",
-"I need you to know something.",
-"This was not copied.",
-"This was not downloaded.",
-"This was built…",
-"Specifically for you.",
-"For every thought I’ve held since 2017.",
-"If you’re ready to step into our story…"
+
+/* Floating Particles */
+for(let i=0;i<60;i++){
+    let p=document.createElement('div');
+    p.className='particle';
+    p.style.left=Math.random()*100+'vw';
+    p.style.top=Math.random()*100+'vh';
+    p.style.animationDelay=Math.random()*12+'s';
+    document.body.appendChild(p);
+}
+
+/* Typewriter Text */
+const lines=[
+"Before you go any further… 💌",
+"I need you to feel something first… 💖",
+"This isn’t just a website. 🌌",
+"It’s a universe…",
+"Built only for you. ✨",
+"Ready? 😉"
 ];
 
-const typewriterElement = document.getElementById('typewriter');
-let i = 0, j = 0, currentText = '', isDeleting=false;
+let line=0;
+let char=0;
+const speed=60;
+const textDiv=document.getElementById("text");
 
-function type() {
-  if(i<typewriterText.length){
-    if(!isDeleting){
-      currentText = typewriterText[i].substring(0,j+1);
-      typewriterElement.innerHTML = currentText + '<span style="opacity:0.7;">|</span>';
-      j++;
-      if(j==typewriterText[i].length){
-        isDeleting=true;
-        typewriterElement.style.animation='heartbeat 1s infinite';
-        setTimeout(type,1200);
-      } else { setTimeout(type,100); }
-    } else {
-      setTimeout(()=>{
-        isDeleting=false; i++; j=0;
-        typewriterElement.style.animation='';
-        if(i==typewriterText.length){
-          document.getElementById('passwordContainer').style.opacity=1;
-          return;
+function type(){
+    if(line<lines.length){
+        if(char<lines[line].length){
+            textDiv.innerHTML+=lines[line].charAt(char);
+            char++;
+            setTimeout(type,speed);
+        }else{
+            textDiv.innerHTML+="<br><br>";
+            line++;
+            char=0;
+            setTimeout(type,700);
         }
-        type();
-      },500);
     }
-  }
 }
 type();
 
-/* --- Password logic --- */
-document.getElementById('unlockBtn').addEventListener('click',()=>{
-  const input=document.getElementById('passwordInput').value.trim();
-  if(input==='2017'){
-    typewriterElement.innerHTML='Access Granted, My Love. ❤️';
-    typewriterElement.style.animation='heartbeat 1s infinite';
-    setTimeout(()=>{ window.location.href='page2.html'; },2500);
-  } else {
-    document.getElementById('passwordContainer').style.animation='shake 0.5s';
-    setTimeout(()=>{ document.getElementById('passwordContainer').style.animation=''; },500);
-    typewriterElement.innerHTML='Almost… think about the day everything started.';
-  }
+/* Enter world */
+function enterWorld(){
+    window.location.href="page2.html";
+}
+
+/* Music Toggle */
+const music=document.getElementById("bgMusic");
+const btn=document.getElementById("musicBtn");
+
+function toggleMusic(){
+    if(music.paused){
+        music.play();
+        btn.innerHTML="🎵 Playing";
+    }else{
+        music.pause();
+        btn.innerHTML="🎵";
+    }
+}
+
+/* Smile surprise */
+document.body.addEventListener("click",()=>{
+    document.getElementById("popup").style.display="block";
 });
 
-/* --- Smile Easter Egg --- */
-document.getElementById('smileLine').addEventListener('click',()=>{
-  document.getElementById('smilePopup').style.display='block';
-});
 </script>
 
 </body>
