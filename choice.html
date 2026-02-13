@@ -3,191 +3,246 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Not Just A Moment… 💝</title>
+<title>Choose Us 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Georgia', serif;
-    height: 100vh;
-    overflow: hidden;
-    background: linear-gradient(-45deg, #1a001f, #330033, #4b004b, #2a0033);
-    background-size: 400% 400%;
-    animation: gradientShift 15s ease infinite;
-    color: #ffd6f6;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    height:100vh;
+    overflow:hidden;
+    font-family: 'Poppins', sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:white;
+    background: linear-gradient(-45deg,#ff758c,#ff7eb3,#ffd86f,#a18cd1,#84fab0,#8fd3f4);
+    background-size:400% 400%;
+    animation:gradientFlow 20s ease infinite;
+    cursor:none;
 }
 
-@keyframes gradientShift {
-    0% {background-position: 0% 50%;}
-    50% {background-position: 100% 50%;}
-    100% {background-position: 0% 50%;}
-}
-
-.container {
-    width: 90%;
-    max-width: 800px;
+@keyframes gradientFlow {
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
 }
 
 h1 {
-    font-size: 2.3em;
-    margin-bottom: 20px;
-    color: #ff99dd;
-    text-shadow: 0 0 15px #ff66cc;
+    font-family:'Great Vibes',cursive;
+    font-size:3.5rem;
+    margin-bottom:20px;
+    animation:heartbeat 3s infinite ease-in-out;
 }
 
-#text {
-    font-size: 1.3em;
-    min-height: 200px;
-    line-height: 1.8em;
+@keyframes heartbeat {
+    0%,100% {transform:scale(1);}
+    50% {transform:scale(1.05);}
 }
 
-.finalLine {
-    margin-top: 30px;
-    font-size: 1.4em;
-    font-weight: bold;
-    color: #ffffff;
-    opacity: 0;
-    transition: opacity 2s ease-in-out;
+.typewriter {
+    font-size:1.4rem;
+    min-height:180px;
+    margin-bottom:30px;
+}
+
+input {
+    padding:15px 25px;
+    border-radius:50px;
+    border:none;
+    width:70%;
+    max-width:400px;
+    text-align:center;
+    font-size:1rem;
+    margin-top:20px;
 }
 
 button {
-    margin-top: 30px;
-    padding: 15px 35px;
-    border: none;
-    border-radius: 50px;
-    background: linear-gradient(45deg, #ff4da6, #ff66cc);
-    color: white;
-    font-size: 1em;
-    cursor: pointer;
-    transition: 0.4s;
+    margin-top:20px;
+    padding:15px 40px;
+    border:none;
+    border-radius:50px;
+    font-size:1rem;
+    cursor:pointer;
+    background:linear-gradient(45deg,#ff66cc,#ff3399,#ffb347);
+    color:white;
+    transition:0.4s;
 }
 
 button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px #ff66cc;
+    transform:scale(1.1);
+    box-shadow:0 0 30px rgba(255,255,255,0.7);
+    background-position:right;
 }
 
+.music {
+    position:absolute;
+    top:20px;
+    right:20px;
+    font-size:1.3rem;
+    cursor:pointer;
+    opacity:0.8;
+}
+
+footer {
+    position:absolute;
+    bottom:10px;
+    right:20px;
+    font-size:0.7rem;
+    opacity:0.5;
+}
+
+/* Floating hearts */
 .heart {
-    position: absolute;
-    font-size: 20px;
-    animation: floatUp 8s linear infinite;
-    opacity: 0.5;
+    position:absolute;
+    font-size:24px;
+    animation:floatUp 8s linear infinite;
+    opacity:0.6;
 }
 
 @keyframes floatUp {
-    from {transform: translateY(100vh);}
-    to {transform: translateY(-10vh);}
+    from {transform: translateY(100vh) rotate(0deg);}
+    to {transform: translateY(-10vh) rotate(360deg);}
+}
+
+/* Spark cursor trail */
+.spark {
+    position:absolute;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    pointer-events:none;
+    animation:fade 1s forwards;
+}
+
+@keyframes fade {
+    to {transform:scale(0); opacity:0;}
+}
+
+/* Final message styling */
+.finalMessage {
+    margin-top:40px;
+    font-size:1.6em;
+    opacity:0;
+    transition: opacity 3s ease-in-out;
+    color: gold;
 }
 </style>
 </head>
 
 <body>
 
-<audio autoplay loop>
-    <source src="https://www.bensound.com/bensound-music/bensound-slowmotion.mp3" type="audio/mpeg">
+<div class="container">
+    <h1>Bridgit… 🌹</h1>
+    <div class="typewriter" id="text"></div>
+    
+    <input type="text" id="choiceInput" placeholder="Type your answer here… 💭">
+    <br>
+    <button onclick="checkChoice()">Unlock Our Destiny ✨</button>
+    
+    <div class="finalMessage" id="finalLine">
+        Then from this moment forward…<br>
+        It’s not 2017 anymore. <br>
+        It’s forever. ♾️💖
+    </div>
+</div>
+
+<div class="music" onclick="toggleMusic()" id="musicBtn">🎵</div>
+
+<footer>Created by BYEGON • Only for her 💌</footer>
+
+<audio id="bgMusic" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
 </audio>
 
-<div class="container">
-<h1>Brigid… 💝</h1>
-
-<div id="text"></div>
-
-<div class="finalLine" id="finalLine">
-I am not choosing you for a season…  
-I am choosing you for the journey. 🌙✨
-</div>
-
-<button onclick="reveal()">Take A Breath… Then Click 💌</button>
-</div>
-
 <script>
+/* Floating hearts randomly */
+function createHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.innerHTML = '💖';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = (6 + Math.random() * 6) + 's';
+    heart.style.fontSize = (20 + Math.random() * 20) + 'px';
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(), 12000);
+}
+setInterval(createHeart, 800);
 
-const message = `I need you to read this slowly.
+/* Typewriter text with emojis */
+const lines=[
+"Every moment we shared… 🌸",
+"Every smile you gave… 💭",
+"Every silent heartbeat I kept… 💓",
+"This is your choice now…",
+"Type what you truly feel 💖",
+"Let’s continue our story together… 🌌"
+];
 
-Not with excitement.
-Not with pressure.
+let line=0;
+let char=0;
+const speed=45;
+const textDiv=document.getElementById("text");
 
-But with honesty.
+function type() {
+    if(line<lines.length){
+        if(char<lines[line].length){
+            textDiv.innerHTML += lines[line].charAt(char);
+            char++;
+            setTimeout(type, speed);
+        } else {
+            textDiv.innerHTML+="<br><br>";
+            line++;
+            char=0;
+            setTimeout(type,700);
+        }
+    }
+}
+type();
 
-I know I have not always expressed myself loudly.
+/* Music toggle */
+const music = document.getElementById("bgMusic");
+const btn = document.getElementById("musicBtn");
 
-I know I have been quiet.
-Reserved.
-Careful.
-
-But my silence was never emptiness.
-
-It was depth.
-
-Since 2017…
-
-You have never been a temporary thought.
-
-You have been consistency.
-
-And that is rare.
-
-This is not about one day.
-Not about flowers.
-Not about social media moments.
-
-This is about something calm.
-Something intentional.
-Something that grows quietly…
-and lasts loudly.
-
-I don’t want to rush you.
-
-I don’t want to pressure you.
-
-I only want you to know…
-
-If we walk this path…
-
-I walk it seriously.
-With clarity.
-With loyalty.
-With respect.
-
-And with you —
-only you. 💞`;
-
-let i = 0;
-
-function typeWriter() {
-    if (i < message.length) {
-        document.getElementById("text").innerHTML += message.charAt(i);
-        i++;
-        setTimeout(typeWriter, 40);
+function toggleMusic(){
+    if(music.paused){
+        music.play();
+        btn.innerHTML="🎵 Playing";
+    } else {
+        music.pause();
+        btn.innerHTML="🎵";
     }
 }
 
-typeWriter();
+/* Spark cursor trail */
+document.addEventListener("mousemove",(e)=>{
+    let spark=document.createElement("div");
+    spark.className="spark";
+    spark.style.left=e.pageX+"px";
+    spark.style.top=e.pageY+"px";
+    spark.style.background="hsl("+Math.random()*360+",100%,70%)";
+    document.body.appendChild(spark);
+    setTimeout(()=>spark.remove(),1000);
+});
 
-function reveal() {
-    document.getElementById("finalLine").style.opacity = "1";
+/* Auto-start music on first click */
+document.body.addEventListener("click", ()=>{
+    if(music.paused){music.play();}
+},{once:true});
+
+/* Check input and show final message */
+function checkChoice() {
+    const input = document.getElementById("choiceInput").value.trim().toLowerCase();
+    if(input === "i choose us"){
+        document.getElementById("finalLine").style.opacity = "1";
+        setTimeout(()=>window.location.href="eternity.html",2500);
+    } else {
+        alert("Read carefully… and type only if your heart feels it. 💭");
+    }
 }
-
-function createHeart() {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "💖";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (5 + Math.random() * 5) + "s";
-    document.body.appendChild(heart);
-
-    setTimeout(() => {
-        heart.remove();
-    }, 8000);
-}
-
-setInterval(createHeart, 800);
-
 </script>
 
 </body>
