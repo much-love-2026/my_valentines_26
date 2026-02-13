@@ -3,174 +3,219 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>If It’s You… Then It’s Everything 💝</title>
-
+<title>Forever Starts Here 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', sans-serif;
-    height: 100vh;
-    overflow: hidden;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    animation: bgMove 15s infinite alternate ease-in-out;
-    background: linear-gradient(45deg, #ff758c, #6a11cb, #ff9966, #00c9ff);
-    background-size: 400% 400%;
+    height:100vh;
+    overflow:hidden;
+    font-family: 'Poppins', sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:white;
+    background: linear-gradient(-45deg,#ff758c,#ff7eb3,#ffd86f,#a18cd1,#84fab0,#8fd3f4);
+    background-size:400% 400%;
+    animation:gradientFlow 20s ease infinite;
+    cursor:none;
 }
 
-@keyframes bgMove {
-    0% {background-position: left;}
-    100% {background-position: right;}
-}
-
-.container {
-    width: 90%;
-    max-width: 800px;
+@keyframes gradientFlow {
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
 }
 
 h1 {
-    font-size: 2.5em;
-    animation: fadeIn 2s ease-in-out;
+    font-family:'Great Vibes',cursive;
+    font-size:3.5rem;
+    margin-bottom:20px;
+    animation:heartbeat 3s infinite ease-in-out;
 }
 
-.typing {
-    font-size: 1.3em;
-    margin-top: 20px;
-    min-height: 120px;
+@keyframes heartbeat {
+    0%,100% {transform:scale(1);}
+    50% {transform:scale(1.05);}
+}
+
+.typewriter {
+    font-size:1.4rem;
+    min-height:160px;
+    margin-bottom:30px;
 }
 
 button {
-    margin-top: 30px;
-    padding: 15px 30px;
-    font-size: 1em;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    background: white;
-    color: #ff4b8b;
-    font-weight: bold;
-    transition: 0.4s;
+    padding:15px 40px;
+    border:none;
+    border-radius:50px;
+    font-size:1rem;
+    cursor:pointer;
+    background:linear-gradient(45deg,#ff66cc,#ff3399,#ffb347);
+    background-size:300%;
+    color:white;
+    transition:0.4s;
 }
 
 button:hover {
-    background: #ff4b8b;
-    color: white;
-    transform: scale(1.1);
+    transform:scale(1.1);
+    box-shadow:0 0 30px rgba(255,255,255,0.7);
+    background-position:right;
 }
 
-@keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
+.music {
+    position:absolute;
+    top:20px;
+    right:20px;
+    font-size:1.3rem;
+    cursor:pointer;
+    opacity:0.8;
 }
 
+footer {
+    position:absolute;
+    bottom:10px;
+    right:20px;
+    font-size:0.7rem;
+    opacity:0.5;
+}
+
+/* Floating hearts */
 .heart {
-    font-size: 40px;
-    animation: beat 1s infinite;
+    position:absolute;
+    font-size:24px;
+    animation:floatUp 8s linear infinite;
+    opacity:0.6;
 }
 
-@keyframes beat {
-    0% {transform: scale(1);}
-    50% {transform: scale(1.3);}
-    100% {transform: scale(1);}
+@keyframes floatUp {
+    from {transform: translateY(100vh) rotate(0deg);}
+    to {transform: translateY(-10vh) rotate(360deg);}
+}
+
+/* Spark cursor trail */
+.spark {
+    position:absolute;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    pointer-events:none;
+    animation:fade 1s forwards;
+}
+
+@keyframes fade {
+    to {transform:scale(0); opacity:0;}
 }
 </style>
 </head>
 
 <body>
 
-<audio id="bgMusic" autoplay loop>
+<div class="container">
+    <h1>Bridgit… 🌹</h1>
+    <div class="typewriter" id="text"></div>
+    <button onclick="enterNext()">Our Story Continues ✨💝</button>
+</div>
+
+<div class="music" onclick="toggleMusic()" id="musicBtn">🎵</div>
+
+<footer>Created by BYEGON • Only for her 💌</footer>
+
+<audio id="bgMusic" loop>
     <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
 </audio>
 
-<div class="container">
-
-<div class="heart">❤️</div>
-
-<h1>Brigid…</h1>
-
-<div class="typing" id="text"></div>
-
-<button onclick="finalMessage()">Click Here… 💝</button>
-
-</div>
-
 <script>
-const message = `In 2017…
-we were just kids.
+/* Floating hearts randomly */
+function createHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.innerHTML = '💖';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = (6 + Math.random() * 6) + 's';
+    heart.style.fontSize = (20 + Math.random() * 20) + 'px';
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(), 12000);
+}
+setInterval(createHeart, 800);
 
-Class eight.
-Simple.
-Young.
+/* Typewriter text with emojis */
+const lines=[
+"Since 2017… 🌸",
+"You have been my constant thought 💭",
+"My silent smile… 🌠",
+"My dream… 🌌",
+"And now…",
+"You are stepping into the world I built for us ✨",
+"Every color… Every light… Every heartbeat…",
+"All for you. 💖",
+"Ready to continue? 😉"
+];
 
-But something about you…
+let line=0;
+let char=0;
+const speed=45;
+const textDiv=document.getElementById("text");
 
-Stayed.
-
-While years passed…
-While life changed…
-While we grew…
-
-You never left my thoughts.
-
-Not because I forced it.
-
-But because you felt different.
-
-When I imagine my future…
-
-I don’t see random faces.
-
-I see you.
-
-Sitting beside me.
-Laughing with me.
-Building with me.
-Growing with me.
-
-Not perfect.
-But real.
-
-Not rushed.
-But intentional.
-
-And that is what makes this different.
-
-So the question isn’t
-“Will you be my Valentine?”
-
-The real question is…
-
-Who are you to me?
-
-You are the peace I imagine.
-The partner I respect.
-The woman I would choose
-again…
-and again…
-and again.
-
-If it’s you…
-
-Then it’s everything. 💝`;
-
-let i = 0;
-function typeWriter() {
-    if (i < message.length) {
-        document.getElementById("text").innerHTML += message.charAt(i);
-        i++;
-        setTimeout(typeWriter, 35);
+function type() {
+    if(line<lines.length){
+        if(char<lines[line].length){
+            textDiv.innerHTML += lines[line].charAt(char);
+            char++;
+            setTimeout(type, speed);
+        } else {
+            textDiv.innerHTML+="<br><br>";
+            line++;
+            char=0;
+            setTimeout(type,700);
+        }
     }
 }
-typeWriter();
+type();
 
-function finalMessage() {
-    alert("Brigid… I am more than ready. The only question is… are we building this together? ❤️");
+/* Enter next page */
+function enterNext() {
+    document.body.classList.add("fade-out");
+    setTimeout(()=>window.location.href="choice.html",1000);
 }
-</script>
 
+/* Music toggle */
+const music = document.getElementById("bgMusic");
+const btn = document.getElementById("musicBtn");
+
+function toggleMusic(){
+    if(music.paused){
+        music.play();
+        btn.innerHTML="🎵 Playing";
+    } else {
+        music.pause();
+        btn.innerHTML="🎵";
+    }
+}
+
+/* Spark cursor trail */
+document.addEventListener("mousemove",(e)=>{
+    let spark=document.createElement("div");
+    spark.className="spark";
+    spark.style.left=e.pageX+"px";
+    spark.style.top=e.pageY+"px";
+    spark.style.background="hsl("+Math.random()*360+",100%,70%)";
+    document.body.appendChild(spark);
+    setTimeout(()=>spark.remove(),1000);
+});
+
+/* Auto-start music on first click */
+document.body.addEventListener("click", ()=>{
+    if(music.paused){music.play();}
+},{once:true});
+
+/* Fade-out cinematic effect */
+const style=document.createElement('style');
+style.innerHTML=".fade-out{animation: fadeOut 1.2s forwards;}@keyframes fadeOut{to{opacity:0; transform: scale(1.05);}}";
+document.head.appendChild(style);
+
+</script>
 </body>
 </html>
