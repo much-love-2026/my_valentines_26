@@ -5,11 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>If You Stay… 🌌</title>
 
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
-    font-family: 'Georgia', serif;
+    font-family: 'Montserrat', sans-serif;
     height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
@@ -24,6 +31,7 @@ body {
     padding: 2vh 2vw;
 }
 
+/* Animated gradient background */
 @keyframes gradientShift {
     0% {background-position: 0% 50%;}
     50% {background-position: 100% 50%;}
@@ -34,15 +42,18 @@ body {
     width: 100%;
     max-width: 800px;
     padding: 2vw;
+    z-index: 2;
 }
 
 h1 {
-    font-size: calc(2rem + 2vw);
+    font-family: 'Great Vibes', cursive;
+    font-size: calc(2rem + 3vw);
     margin-bottom: 2vh;
     color: #ff99dd;
     text-shadow: 0 0 15px #ff66cc;
 }
 
+/* Typewriter text */
 #text {
     font-size: calc(1rem + 0.8vw);
     line-height: 1.8em;
@@ -50,6 +61,7 @@ h1 {
     margin-bottom: 2vh;
 }
 
+/* Final line reveal */
 .finalLine {
     margin-top: 3vh;
     font-size: calc(1.2rem + 0.5vw);
@@ -59,6 +71,7 @@ h1 {
     transition: opacity 2s ease-in-out;
 }
 
+/* Buttons */
 button {
     margin-top: 3vh;
     padding: calc(12px + 0.5vw) calc(25px + 1vw);
@@ -73,14 +86,15 @@ button {
 
 button:hover {
     transform: scale(1.1);
-    box-shadow: 0 0 20px #ff66cc;
+    box-shadow: 0 0 25px #ff66cc;
 }
 
+/* Floating hearts */
 .heart {
     position: absolute;
     font-size: calc(20px + 1vw);
     animation: floatUp 8s linear infinite;
-    opacity: 0.5;
+    opacity: 0.6;
 }
 
 @keyframes floatUp {
@@ -95,12 +109,12 @@ button:hover {
     right: 2vw;
     font-size: calc(1rem + 0.5vw);
     cursor: pointer;
-    opacity: 0.8;
+    opacity: 0.9;
     z-index: 10;
 }
 
-/* Make everything responsive on mobile */
-@media (max-width: 600px){
+/* Responsive adjustments */
+@media (max-width: 600px) {
     h1 { font-size: 2.5rem; }
     .finalLine { font-size: 1.2rem; }
     button { font-size: 1rem; padding: 10px 20px; }
@@ -110,9 +124,13 @@ button:hover {
 
 <body>
 
-<audio autoplay loop>
+<!-- Background Music -->
+<audio id="bgMusic" autoplay loop>
     <source src="https://www.bensound.com/bensound-music/bensound-tomorrow.mp3" type="audio/mpeg">
 </audio>
+
+<!-- Music Toggle -->
+<div class="music" onclick="toggleMusic()" id="musicBtn">🎵</div>
 
 <div class="container">
     <h1>Brigid… 💝</h1>
@@ -127,9 +145,8 @@ button:hover {
     <button onclick="reveal()">Stay With Me… 🌙</button>
 </div>
 
-<div class="music" onclick="toggleMusic()" id="musicBtn">🎵</div>
-
 <script>
+// Typewriter message
 const message = `If you stay…
 
 Not because it is Valentine’s.
@@ -179,7 +196,7 @@ Intentionally.`;
 
 let i = 0;
 function typeWriter() {
-    if(i < message.length){
+    if (i < message.length) {
         document.getElementById("text").innerHTML += message.charAt(i);
         i++;
         setTimeout(typeWriter, 40);
@@ -187,32 +204,33 @@ function typeWriter() {
 }
 setTimeout(typeWriter, 1000);
 
-function reveal(){
+// Reveal final line
+function reveal() {
     document.getElementById("finalLine").style.opacity = "1";
 }
 
-/* Floating hearts */
-function createHeart(){
+// Floating hearts effect
+function createHeart() {
     const heart = document.createElement('div');
-    heart.className='heart';
-    heart.innerHTML='💖';
-    heart.style.left = Math.random()*100+'vw';
-    heart.style.animationDuration = (5 + Math.random()*5)+'s';
+    heart.className = 'heart';
+    heart.innerHTML = '💖';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = (5 + Math.random() * 5) + 's';
     document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),8000);
+    setTimeout(() => heart.remove(), 8000);
 }
-setInterval(createHeart,700);
+setInterval(createHeart, 700);
 
-/* Music toggle */
-const music=document.querySelector('audio');
-const btn=document.getElementById('musicBtn');
-function toggleMusic(){
-    if(music.paused){
+// Music toggle
+const music = document.getElementById('bgMusic');
+const btn = document.getElementById('musicBtn');
+function toggleMusic() {
+    if (music.paused) {
         music.play();
-        btn.innerHTML="🎵 Playing";
+        btn.innerHTML = "🎵 Playing";
     } else {
         music.pause();
-        btn.innerHTML="🎵";
+        btn.innerHTML = "🎵";
     }
 }
 </script>
